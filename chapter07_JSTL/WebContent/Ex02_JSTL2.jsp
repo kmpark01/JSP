@@ -7,8 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	${HOBBIES[0] }
-	${HOBBIES[1] }
-	${HOBBIES[2] }
+	이름 : ${name } <br>
+	주소 : ${addr} <br>
+	전화번호 : ${phone} <br>
 </body>
 </html>
+
+
+
+
+
