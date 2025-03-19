@@ -194,7 +194,7 @@ public class MemberDao {
 	        }
 	    }
 	    
-	    return member;  // 데이터가 있으면 member 반환, 없으면 null
+	    return member;
 	}
 	
 	public int update(MemberVO vo) {
@@ -237,7 +237,7 @@ public class MemberDao {
 	}
 	
 	public MemberVO search(MemberVO vo) {
-		 MemberVO member = null;  // 결과를 담을 객체
+		 MemberVO member = null;
 
 		    try {
 		        conn = ds.getConnection();
@@ -248,8 +248,8 @@ public class MemberDao {
 
 		        rs = ps.executeQuery();
 
-		        if (rs.next()) {  // 한 개의 데이터만 가져옴
-		            member = new MemberVO();  // 새 객체 생성
+		        if (rs.next()) {
+		            member = new MemberVO();
 		            member.setIdx(rs.getInt("idx"));
 		            member.setId(rs.getString("id"));
 		            member.setPw(rs.getString("pw"));
