@@ -32,9 +32,7 @@
 		%>
 	
 	<h1><%=id %>회원 데이터</h1>
-	
-	<form action="update.jsp">
-		<table>
+	<table>
 		<thead>
 			<tr>
 				<th>회원번호</th>
@@ -57,27 +55,17 @@
 				<tr>
 					<td><%=rs.getInt(1) %></td>
 					<td><%=rs.getString(2) %></td>
-					<td><input type="password" value='<%=rs.getString(3) %>' name="newPw"></td>
-					<td><input type="text" value='<%=rs.getString(4) %>' name="newName"></td>
-					<td><input type="number" value='<%=rs.getInt(5) %>' name="newAge"></td>
-					<td><input type="text" value='<%=rs.getString(6) %>' name="newAddr"></td>
+					<td><%=rs.getString(3) %></td>
+					<td><%=rs.getString(4) %></td>
+					<td><%=rs.getInt(5) %></td>
+					<td><%=rs.getString(6) %></td>
 					<td><%=rs.getDate(7) %></td>
 				</tr>
 			<%
 			}
 		 %>
 		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="7">
-				<input type="button" value="수정" onclick="update_page()">
-				<input type="reset" value="다시 작성">
-				<input type="hidden" name="id" value="<%= id %>">
-			</tr>
-		</tfoot>
-		
-	</table>	
-	</form>
+	</table>
 	
 	<%
 			
@@ -97,15 +85,6 @@
 		
 	%>
 </body>
-<script type="text/javascript">
-	function update_page(f){
-		if(!f.id.value || !f.pw.value){
-			alert('아이디 및 비밀번호를 입력하세요.');
-			return;
-		}
-		f.action = 'update.jsp'
-	}
-</script>
 </html>
 
 
