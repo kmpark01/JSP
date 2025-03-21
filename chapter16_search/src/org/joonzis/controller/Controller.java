@@ -48,9 +48,11 @@ public class Controller extends HttpServlet {
 			request.setAttribute("list", list);
 			path = "allList.jsp";
 			break;
+		
 		case "inputDept" :
 			path = "inputDept.jsp";
 			break;
+		
 		case "deptlist" :
 			String departmentIdStr = request.getParameter("department_id");
 			int departmentId = Integer.parseInt(departmentIdStr); 
@@ -60,9 +62,11 @@ public class Controller extends HttpServlet {
 			request.setAttribute("vo", vo);
 			path = "deptList.jsp";
 			break;
+		
 		case "inputDynamic" :
 			path = "inputDynamic.jsp";
 			break;
+		
 		case "dynamiclist" :
             // 동적 검색 처리
             String searchType = request.getParameter("searchType");  // 검색 유형 (예: name, department, employee)

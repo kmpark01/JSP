@@ -1,24 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>직원 정보</title>
+<title>Insert title here</title>
 <style type="text/css">
-   div {
+   div{
       width: 800px;
       text-align: center;
       margin: auto;
    }
-   table {
+   table{
       width: 100%;
       border-collapse: collapse;
    }
-   th, td {
+   th, td{
       border: 1px solid gray;
    }
-   th {
+   th{
       padding: 5px;
       background-color: darkslateblue;
       color: white;
@@ -26,71 +27,49 @@
 </style>
 </head>
 <body>
-	<c:choose>
-		<c:when test="${not empty vo.employee_id}">
-			<div>
-				<h1>${vo.employee_id}번 직원 정보</h1>
-				<table>
-					<thead>
-						<tr>
-							<th>직원ID</th>
-							<th>이름</th>
-							<th>연락처</th>
-							<th>연봉</th>
-							<th>부서ID</th>
-							<th>고용일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>${vo.employee_id}</td>
-							<td>${vo.first_name} ${vo.last_name}</td>
-							<td>${vo.phone_number}</td>
-							<td>${vo.salary}</td>
-							<td>${vo.department_id}</td>
-							<td>${vo.hire_date}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</c:when>
-
-		<c:otherwise>
-			<div>
-				<h1>${vo.department_id}번 부서 직원 목록</h1>
-				<table>
-					<thead>
-						<tr>
-							<th>직원ID</th>
-							<th>이름</th>
-							<th>연락처</th>
-							<th>연봉</th>
-							<th>부서ID</th>
-							<th>고용일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:choose>
-							<c:when test="${not empty list}">
-								<c:forEach var="vo" items="${list}">
-									<tr>
-										<td>${vo.employee_id}</td>
-										<td>${vo.first_name} ${vo.last_name}</td> <!-- 이름과 성 출력 -->
-										<td>${vo.phone_number}</td>
-										<td>${vo.salary}</td>
-										<td>${vo.department_id}</td>
-										<td>${vo.hire_date}</td>
-									</tr>
-								</c:forEach>
-							</c:when>
-							<c:otherwise>
-								<tr><td colspan="6">부서 직원 정보가 없습니다.</td></tr>
-							</c:otherwise>
-						</c:choose>
-					</tbody>
-				</table>
-			</div>
-		</c:otherwise>
-	</c:choose>
+	<div>
+		<c:choose>
+			<c:when test="${searchType == 'name' }">
+				<h1>이름이 ${searchQuery}인 직원 목록</h1>
+			</c:when>
+			<c:when test="${searchType == 'department' }">
+				<h1>부서 번호가 ${searchQuery}인 직원 목록</h1>
+			</c:when>
+			<c:when test="${searchType == 'employee' }">
+				<h1>사원 번호가 ${searchQuery}인 직원 목록</h1>
+			</c:when>
+		</c:choose>
+		<table>
+			<thead>
+				<tr>
+					<th>직원ID</th>
+					<th>이름</th>
+					<th>연락처</th>
+					<th>연봉</th>
+					<th>부서ID</th>
+					<th>고용일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:choose>
+					<c:when test="${not empty list }">
+						<c:forEach var="vo" items="${list }">
+							<tr>
+								<td>${vo.employee_id }</td>
+								<td>${vo.first_name }</td>
+								<td>${vo.phone_number }</td>
+								<td>${vo.salary }</td>
+								<td>${vo.department_id }</td>
+								<td>${vo.hire_date }</td>
+							</tr>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						
+					</c:otherwise>
+				</c:choose>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>

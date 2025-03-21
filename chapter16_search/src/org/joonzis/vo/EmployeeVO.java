@@ -6,13 +6,14 @@ public class EmployeeVO {
 	
 	private int employee_id, salary, namager_id, department_id;
 	private double commision_pct;
-	private String first_name, last_name, email, phone_number, job_id;
+	private String first_name, last_name, email, phone_number, job_id, searchType, searchQuery;
 	private Date hire_date;
+	
 	
 	public EmployeeVO() {}
 	
 	public EmployeeVO(int employee_id, int salary, int namager_id, int department_id, double commision_pct,
-			String first_name, String last_name, String email, String phone_number, String job_id, Date hire_date) {
+			String first_name, String last_name, String email, String phone_number, String job_id, Date hire_date, String searchType, String searchQuery) {
 		super();
 		this.employee_id = employee_id;
 		this.salary = salary;
@@ -25,6 +26,8 @@ public class EmployeeVO {
 		this.phone_number = phone_number;
 		this.job_id = job_id;
 		this.hire_date = hire_date;
+		this.searchType = searchType;
+		this.searchQuery = searchQuery;
 	}
 
 	public int getEmployee_id() {
@@ -113,6 +116,22 @@ public class EmployeeVO {
 
 	public void setHire_date(Date hire_date) {
 		this.hire_date = hire_date;
+	}
+
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
+	public String getSearchQuery() {
+		return searchQuery;
+	}
+
+	public void setSearchQuery(String searchQuery) {
+		this.searchQuery = searchQuery;
 	}
 	
 	

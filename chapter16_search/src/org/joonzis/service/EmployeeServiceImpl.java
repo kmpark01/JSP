@@ -22,8 +22,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public List<EmployeeVO> getDynamicSearch(String searchType, String searchQuery) {
-		return null;
+		return dao.getDynamincEmployees(searchType, searchQuery);
 	}
-	
-	
 }

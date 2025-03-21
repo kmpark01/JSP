@@ -1,6 +1,9 @@
 package org.joonzis.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.joonzis.mybatis.config.DBService;
@@ -41,20 +44,23 @@ public class EmployeeDaoImpl implements EmployeeDao{
 
 	@Override
 	public List<EmployeeVO> getDynamincEmployees(String searchType, String searchQuery) {
-	    // MyBatis에서 동적 쿼리 파라미터로 전달할 VO 객체 생성
-	    EmployeeVO vo = new EmployeeVO();
-
-	    // 조건에 따라 vo 객체에 값 설정
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("searchType", searchType);
+	    
+	    // 조건에 따라 적절한 값 설정
 	    if ("name".equals(searchType)) {
-	        vo.setFirst_name(searchQuery);  // 성명 검색
-	    } else if ("department".equals(searchType)) {
-	        vo.setDepartment_id(Integer.parseInt(searchQuery));  // 부서 번호 검색
-	    } else if ("employee".equals(searchType)) {
-	        vo.setEmployee_id(Integer.parseInt(searchQuery));  // 사원 번호 검색
+	        paramMap.put("searchQuery", searchQuery);  // 성명 검색
+	    } else if ("department".equals(searchType) || "employee".equals(searchType)) {
+	        try {
+	            paramMap.put("searchQuery", Integer.parseInt(searchQuery));  // 숫자 변환
+	        } catch (NumberFormatException e) {
+	            System.err.println("Invalid number format: " + searchQuery);
+	            return new ArrayList<>();  // 빈 리스트 반환
+	        }
 	    }
 
 	    // MyBatis 쿼리 실행
-	    return getSqlSession().selectList("select_dynamic", vo);
+	    return getSqlSession().selectList("select_dynamic", paramMap);
 	}
 	
 	

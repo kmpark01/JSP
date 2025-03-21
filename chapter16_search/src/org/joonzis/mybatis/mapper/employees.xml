@@ -26,21 +26,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 동적 검색을 위한 쿼리 -->
-    <select id="select_dynamic" resultType="EmployeeVO">
-    SELECT * FROM employees
-    WHERE
+    <select id="select_dynamic" parameterType="java.util.Map" resultType="org.joonzis.vo.EmployeeVO">
+    select * from employees 
+    where
     <choose>
-        <when test="searchType == 'name'">
-            first_name LIKE CONCAT('%', #{searchQuery}, '%') OR last_name LIKE CONCAT('%', #{searchQuery}, '%')
+        <when test="searchType eq 'name'">
+            first_name = #{searchQuery}
         </when>
-        <when test="searchType == 'department'">
+        <when test="searchType eq 'department'">
             department_id = #{searchQuery}
         </when>
-        <when test="searchType == 'employee'">
+        <when test="searchType eq 'employee'">
             employee_id = #{searchQuery}
         </when>
     </choose>
-</select>
+	</select>
 </mapper>
 
 
