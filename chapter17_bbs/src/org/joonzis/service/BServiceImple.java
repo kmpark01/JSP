@@ -4,15 +4,16 @@ import java.util.List;
 
 import org.joonzis.dao.BDao;
 import org.joonzis.dao.BDaoImpl;
+import org.joonzis.model.Criteria;
 import org.joonzis.vo.BVO;
 
 public class BServiceImple implements BService{
 	private BDao bdao = BDaoImpl.getInstance();
 	
-	@Override
-	public List<BVO> getList() {
-		return bdao.getList();
-	}
+//	@Override
+//	public List<BVO> getList() {
+//		return bdao.getList();
+//	}
 	@Override
 	public int InsertBBS(BVO bvo) {
 		return bdao.InsertBBS(bvo);
@@ -29,11 +30,29 @@ public class BServiceImple implements BService{
 	public int removeBBS(int b_idx) {
 		return bdao.removeBBS(b_idx);
 	}
+	
+	
+	@Override
+	public int removeBBSComment(int b_idx) {
+		return bdao.removeBBSComment(b_idx);
+	}
 	@Override
 	public void updateHit(BVO bvo) {
 		bdao.updateHit(bvo);
 	}
+	@Override
+	public List<BVO> getListWithPaging(Criteria cri) {
+		return bdao.getListWithPaging(cri);
+	}
+	@Override
+	public int getTotalRecordCount() {
+		return bdao.getTotalRecordCount();
+	}
+	
+	
 }
+
+
 
 
 

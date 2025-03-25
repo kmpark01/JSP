@@ -20,9 +20,9 @@
 	<classpathentry kind="lib" path="C:/dev/jar/taglibs-standard-impl-1.2.5.jar"/>
 	<classpathentry kind="lib" path="C:/dev/jar/taglibs-standard-jstlel-1.2.5.jar"/>
 	<classpathentry kind="lib" path="C:/dev/jar/taglibs-standard-spec-1.2.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sdedu/Desktop/jackson/jackson-annotations-2.11.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sdedu/Desktop/jackson/jackson-core-2.11.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sdedu/Desktop/jackson/jackson-databind-2.11.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/sdedu/Desktop/jackson/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/dev/jar/jackson/jackson-annotations-2.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/dev/jar/jackson/jackson-core-2.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/dev/jar/jackson/jackson-databind-2.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/dev/jar/jackson/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

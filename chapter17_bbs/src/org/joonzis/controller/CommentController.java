@@ -3,6 +3,7 @@ package org.joonzis.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Inet4Address;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -63,11 +64,42 @@ public class CommentController extends HttpServlet {
 			System.out.println("result : " + result );
 			
 			break;
+			
+		case "commList" :
+			int b_idx = Integer.parseInt(request.getParameter("b_idx"));
+			
+			System.out.println(b_idx);
+			
+			// DB에서 List 가져오기
+			List<CVO> cList = cservice.getCommentList(b_idx);
+			
+			request.setAttribute("cList", cList);
+					
+			objectMapper = new ObjectMapper();
+			jsonString = objectMapper.writeValueAsString(cList);
+			
+			obj.put("cList", jsonString);
+			
+			break;
+			
+		case "removeComm":
+			int c_idx = Integer.parseInt(
+					request.getParameter("c_idx"));
+			result = cservice.deleteComment(c_idx);
+			if(result > 0) {
+				obj.put("result", "success");
+			}else {
+				obj.put("result", "fail");
+			}
+			break;
+			
 		}
-		
-		
-		
+			
+		out.print(obj);
 	}
+		
+		
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

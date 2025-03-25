@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.joonzis.model.Criteria;
 import org.joonzis.model.FileDownload;
+import org.joonzis.model.PageDTO;
 import org.joonzis.service.BService;
 import org.joonzis.service.BServiceImple;
 import org.joonzis.vo.BVO;
@@ -70,12 +72,46 @@ public class BBSController extends HttpServlet {
 		HttpSession session = request.getSession();
 		// 세션 정보 저장
 		String open = null;
+		// 페이징 처리를 위한 객체 선언
+		// 다른 영역에서도 사용할 수 있도록 작성
+		String pageNum = "";
+		String amount = "";
+		int parsePageNum = 0;
+		int parseAmount = 0;
 		
 		switch(cmd) {
 		case "allList":
+			
+			// 1. index.jsp 에서 전달 받은 파라미터로 cri 객체 생성
+			pageNum = request.getParameter("pageNum");
+			amount = request.getParameter("amount");
+			
+			if(pageNum != null && amount != null) {
+				// pageNum과 amount를 잘 전달 받으면
+				parsePageNum = Integer.parseInt(pageNum);
+				parseAmount = Integer.parseInt(amount);
+			}else {
+				// 전달 받지 못하면 기본 값으로 초기화
+				parsePageNum = 1;
+				parseAmount = 5;
+			}
+			
+			Criteria cri = new Criteria(parsePageNum, parseAmount);
 			path = "bbs/allList.jsp";
-			list = bservice.getList();
+//			list = bservice.getList();
+			// 2. 페이징 게시글 가져오기
+			list = bservice.getListWithPaging(cri);
+			
+			
+			// 3. 전체 게시글 수 가져오기
+			int total = bservice.getTotalRecordCount();
+			
+			// 4. pageDTO 객체 만들기
+			PageDTO pdto = new PageDTO(cri, total);
+			
+			// 5. 게시글 및 페이징 객체 request에 저장 및 전달
 			request.setAttribute("list", list);
+			request.setAttribute("pageMaker", pdto);
 			
 			open = (String)session.getAttribute("open");
 			if(open != null) {
@@ -182,6 +218,7 @@ public class BBSController extends HttpServlet {
 			int b_idx2 = 
 				Integer.parseInt(request.getParameter("b_idx"));
 			
+			bservice.removeBBSComment(b_idx2);
 			bservice.removeBBS(b_idx2);
 			isForward = false;
 			path = "BBSController?cmd=allList";

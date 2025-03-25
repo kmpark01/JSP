@@ -3,6 +3,7 @@ package org.joonzis.dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.joonzis.model.Criteria;
 import org.joonzis.mybatis.config.DBService;
 import org.joonzis.vo.BVO;
 
@@ -27,9 +28,13 @@ public class BDaoImpl implements BDao{
 		return sqlsession;
 	}
 	
+//	@Override
+//	public List<BVO> getList() {
+//		return getSqlSession().selectList("select_all");
+//	}
 	@Override
-	public List<BVO> getList() {
-		return getSqlSession().selectList("select_all");
+	public List<BVO> getListWithPaging(Criteria cri) {
+		return getSqlSession().selectList("select_all_with_paging", cri);
 	}
 	
 	@Override
@@ -62,6 +67,17 @@ public class BDaoImpl implements BDao{
 		}
 		return result; 
 	}
+	
+	
+	@Override
+	public int removeBBSComment(int b_idx) {
+		int result = getSqlSession().delete("delete_bbs_comment", b_idx);
+		if(result > 0) {
+			getSqlSession().commit();
+		}
+		return result;
+	}
+	
 	@Override
 	public void updateHit(BVO bvo) {
 		int result = getSqlSession().update("update_hit", bvo);
@@ -69,6 +85,12 @@ public class BDaoImpl implements BDao{
 			getSqlSession().commit();
 		}
 	}
+	@Override
+	public int getTotalRecordCount() {
+		return getSqlSession().selectOne("select_total_count");
+	}
+	
+	
 }
 
 

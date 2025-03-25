@@ -16,6 +16,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{b_idx}
 		)
 	</insert>
+	
+	<select id="select_comment" parameterType="int" resultType="org.joonzis.vo.CVO">
+		SELECT * FROM COMMENT_T WHERE b_idx = #{b_idx}
+	</select>
+	
+	<delete id="delete_comment" parameterType="org.joonzis.vo.CVO">
+		DELETE FROM COMMENT_T WHERE c_idx = #{c_idx}
+	</delete>
+	
+	<delete id="delete_all_comment" parameterType="org.joonzis.vo.CVO">
+		DELETE FROM COMMENT_T WEHERE b_idx = #{b_idx)
+	</delete>
 </mapper>
 
 

@@ -26,8 +26,12 @@ function insert(f){
 }
 
 // 목록으로 이동 함수
-function view_all(){
-	location.href='BBSController?cmd=allList';
+function view_all(event){
+	event.preventDefault(); // 기본 링크 동작 방지
+
+	let pageNum = event.currentTarget.getAttribute('href');
+	console.log(pageNum);
+	/*location.href = 'BBSController?cmd=allList';*/
 }
 
 // 수정 페이지 이동 함수
@@ -36,7 +40,8 @@ function updatePage(){
 }
 // 게시글 삭제 함수
 function removeBBS(b_idx){
-	
+	alert("게시글이 삭제되었습니다.")
+	location.href = `BBSController?cmd=remove&b_idx=${b_idx}`;
 }
 // 게시글 수정 함수
 function update(f, pw){
@@ -57,6 +62,20 @@ function update(f, pw){
 	f.submit();
 }
 
+// 페이지 버튼 클릭 이벤트
+let aEles = document.querySelectorAll(".page-nation li a");
+aEles.forEach( aEle => {
+	aEle.addEventListener('click', function(e){
+		e.preventDefault();
+		
+		let pageNum = this.getAttribute('href');
+		
+		let sendData = `cmd=allList&pageNum=${pageNum}&amount=5`;
+		location.href = `BBSController?${sendData}`;
+		
+		console.log(pageNum);
+	});
+});
 
 
 
