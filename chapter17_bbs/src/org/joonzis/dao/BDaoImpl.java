@@ -6,24 +6,23 @@ import org.apache.ibatis.session.SqlSession;
 import org.joonzis.mybatis.config.DBService;
 import org.joonzis.vo.BVO;
 
-public class BDaoImpl implements BDao {
-	
+public class BDaoImpl implements BDao{
 	// DAO 객체 생성
 	private static BDaoImpl instance = null;
 	private BDaoImpl() {}
-	
 	public static BDaoImpl getInstance() {
 		if(instance == null) {
 			instance = new BDaoImpl();
 		}
 		return instance;
 	}
-	
+
 	// 필드
 	private static SqlSession sqlsession = null;
 	private synchronized static SqlSession getSqlSession() {
 		if(sqlsession == null) {
-			sqlsession = DBService.getFactory().openSession(false);
+			sqlsession = DBService.getFactory()
+					.openSession(false);
 		}
 		return sqlsession;
 	}
@@ -35,8 +34,45 @@ public class BDaoImpl implements BDao {
 	
 	@Override
 	public int InsertBBS(BVO bvo) {
-	    int result = getSqlSession().insert("insert_bbs", bvo);
-	    sqlsession.commit();
-	    return result;
+		int result = getSqlSession().insert("insert_bbs", bvo);
+		if(result > 0) {
+			getSqlSession().commit();
+		}
+		return result; 
+	}
+	
+	@Override
+	public BVO getBBS(int b_idx) {
+		return getSqlSession().
+				selectOne("select_by_idx", b_idx);
+	}
+	@Override
+	public int updateBBS(BVO bvo) {
+		int result = getSqlSession().update("update_bbs", bvo);
+		if(result > 0) {
+			getSqlSession().commit();
+		}
+		return result; 
+	}
+	@Override
+	public int removeBBS(int b_idx) {
+		int result = getSqlSession().delete("delete_bbs", b_idx);
+		if(result > 0) {
+			getSqlSession().commit();
+		}
+		return result; 
+	}
+	@Override
+	public void updateHit(BVO bvo) {
+		int result = getSqlSession().update("update_hit", bvo);
+		if(result > 0) {
+			getSqlSession().commit();
+		}
 	}
 }
+
+
+
+
+
+

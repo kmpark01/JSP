@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="css/allList.css">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/allList.css">
 </head>
 <body>
 	<div>
@@ -30,7 +30,9 @@
                   <c:forEach varStatus="vs" var="bvo" items="${list }">
                      <tr>
                         <td>${bvo.b_idx }</td>
-                        <td>${bvo.title }</td>
+                        <td>
+                        	<a href="BBSController?cmd=view&b_idx=${bvo.b_idx}">${bvo.title }</a>
+                       	</td>
                         <td>${bvo.writer }</td>
                         <td>${bvo.reg_date }</td>
                         <td>${bvo.hit }</td>
@@ -45,7 +47,6 @@
             </c:choose>
          </tbody>
          <tfoot>
-            
          </tfoot>
       </table>
       <!-- page -->
@@ -53,3 +54,8 @@
 </body>
 <script type="text/javascript" src="js/bbs.js"></script>
 </html>
+
+
+
+
+
