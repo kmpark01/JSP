@@ -32,7 +32,10 @@
                      <tr>
                         <td>${bvo.b_idx }</td>
                         <td>
-                        	<a href="BBSController?cmd=view&b_idx=${bvo.b_idx}">${bvo.title }</a>
+                        	<%-- <a href="BBSController?cmd=view&b_idx=${bvo.b_idx}">${bvo.title }</a> --%>
+                        	<a href="${bvo.b_idx}" 
+                        	pageNum="${pageMaker.cri.pageNum }"
+                        	amount="${pageMaker.cri.amount }">${bvo.title }</a>
                        	</td>
                         <td>${bvo.writer }</td>
                         <td>${bvo.reg_date }</td>

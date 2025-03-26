@@ -79,22 +79,23 @@ public class BBSController extends HttpServlet {
 		int parsePageNum = 0;
 		int parseAmount = 0;
 		
+		// 1. index.jsp 에서 전달 받은 파라미터로 cri 객체 생성
+		pageNum = request.getParameter("pageNum");
+		amount = request.getParameter("amount");
+		
+		if(pageNum != null && amount != null) {
+			// pageNum과 amount를 잘 전달 받으면
+			parsePageNum = Integer.parseInt(pageNum);
+			parseAmount = Integer.parseInt(amount);
+		}else {
+			// 전달 받지 못하면 기본 값으로 초기화
+			parsePageNum = 1;
+			parseAmount = 5;
+		}
+		
+		
 		switch(cmd) {
 		case "allList":
-			
-			// 1. index.jsp 에서 전달 받은 파라미터로 cri 객체 생성
-			pageNum = request.getParameter("pageNum");
-			amount = request.getParameter("amount");
-			
-			if(pageNum != null && amount != null) {
-				// pageNum과 amount를 잘 전달 받으면
-				parsePageNum = Integer.parseInt(pageNum);
-				parseAmount = Integer.parseInt(amount);
-			}else {
-				// 전달 받지 못하면 기본 값으로 초기화
-				parsePageNum = 1;
-				parseAmount = 5;
-			}
 			
 			Criteria cri = new Criteria(parsePageNum, parseAmount);
 			path = "bbs/allList.jsp";
@@ -177,7 +178,6 @@ public class BBSController extends HttpServlet {
 			break;
 			
 		case "update":
-			
 			bvo = new BVO();
 			bvo.setB_idx(
 					Integer.parseInt(mr.getParameter("b_idx")));
@@ -211,7 +211,9 @@ public class BBSController extends HttpServlet {
 			}
 			bservice.updateBBS(bvo);
 			isForward = false;
-			path = "BBSController?cmd=view&b_idx=" + bvo.getB_idx();
+			path = "BBSController?cmd=view&b_idx=" + bvo.getB_idx() + 
+					"&pageNum=" + parsePageNum +
+					"&amount=" + parseAmount;
 			break;
 			
 		case "remove":

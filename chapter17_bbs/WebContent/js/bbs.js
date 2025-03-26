@@ -26,17 +26,25 @@ function insert(f){
 }
 
 // 목록으로 이동 함수
-function view_all(event){
-	event.preventDefault(); // 기본 링크 동작 방지
-
-	let pageNum = event.currentTarget.getAttribute('href');
-	console.log(pageNum);
+function view_all(){
+	let pageNum = new URLSearchParams(location.search).get('pageNum');
+	let amount = new URLSearchParams(location.search).get('amount');
+	
+	let sendData = `cmd=allList&pageNum=${pageNum}&amount=${amount}`;
+	location.href = `BBSController?${sendData}`;
+	
+	console.log(pageNum, amount);
 	/*location.href = 'BBSController?cmd=allList';*/
 }
 
 // 수정 페이지 이동 함수
 function updatePage(){
-	location.href = 'BBSController?cmd=updatePage';
+	let b_idx = new URLSearchParams(location.search).get('b_idx');
+	let pageNum = new URLSearchParams(location.search).get('pageNum');
+	let amount = new URLSearchParams(location.search).get('amount');
+	
+	let sendData = `cmd=updatePage&b_idx=${b_idx}&pageNum=${pageNum}&amount=${amount}`;
+	location.href = `BBSController?${sendData}`;
 }
 // 게시글 삭제 함수
 function removeBBS(b_idx){
@@ -45,6 +53,11 @@ function removeBBS(b_idx){
 }
 // 게시글 수정 함수
 function update(f, pw){
+	let b_idx = new URLSearchParams(location.search).get('b_idx');
+	let pageNum = new URLSearchParams(location.search).get('pageNum');
+	let amount = new URLSearchParams(location.search).get('amount');
+	
+	let sendData = `cmd=view&b_idx=${b_idx}&pageNum=${pageNum}&amount=${amount}`;
 	// 파라미터 pw == 세션에 저장된 실제 비밀번호
 	if(f.pw.value != pw){
 		alert("비밀번호가 일치하지 않습니다.");
@@ -58,8 +71,10 @@ function update(f, pw){
 		alert("내용을 입력해주세요.");
 		return;
 	}
-	f.action = "BBSController";
+
+	f.action = 'BBSController';
 	f.submit();
+	location.href = `BBSController?${sendData}`
 }
 
 // 페이지 버튼 클릭 이벤트
@@ -76,6 +91,22 @@ aEles.forEach( aEle => {
 		console.log(pageNum);
 	});
 });
+
+// 상세 보기(view) 이동 클릭 이벤트
+document.querySelectorAll("tbody a").forEach(aEle => {
+	aEle.addEventListener('click', function(e){
+		e.preventDefault();
+		
+		let b_idx = this.getAttribute('href');
+		let pageNum = this.getAttribute('pageNum');
+		let amount = this.getAttribute('amount');
+		
+		let sendData = `cmd=view&b_idx=${b_idx}&pageNum=${pageNum}&amount=${amount}`;
+		location.href = `BBSController?${sendData}`;
+		
+		console.log(b_idx, pageNum, amount);
+	})
+})
 
 
 
