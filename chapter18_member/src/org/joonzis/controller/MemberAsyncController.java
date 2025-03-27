@@ -102,15 +102,23 @@ public class MemberAsyncController extends HttpServlet {
 			mvo.setmId((String)obj.get("mId"));
 			mvo.setmPw((String)obj.get("mPw"));
 			
-			String result = mservice.checkMember(mvo);
-			obj.put("result", result);
+			MemberVO resultVO = mservice.checkMember(mvo);
 			
-			if("success".equals(result)) {
-				session.setAttribute("member", mvo);
-				obj.put("member", mvo);
+			if(resultVO == null) {
+				obj.put("result", "fail");
+			}else {
+				session.setAttribute("member", resultVO);
+				obj.put("result", "success");
 			}
 			
-			System.out.println(result);
+			break;
+		case "updateMember" :
+			mvo = new MemberVO();
+			mvo.setmId((String)obj.get("mId"));
+			mvo.setmPw((String)obj.get("mPw"));
+			mvo.setmName((String)obj.get("mName"));
+			
+			obj.put("result", mservice.updateMember(mvo));
 			break;
 		}
 		out.print(obj);

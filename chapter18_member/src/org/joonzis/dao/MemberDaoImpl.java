@@ -41,9 +41,21 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public String checkMember(MemberVO mvo) {
+	public MemberVO checkMember(MemberVO mvo) {
 		return getSqlSession().selectOne("check_member", mvo);
 	}
-	
-	
+
+	@Override
+	public MemberVO memberInfo(MemberVO mvo) {
+		return getSqlSession().selectOne("member_info", mvo);
+	}
+
+	@Override
+	public int updateMember(MemberVO mvo) {
+		int result = getSqlSession().update("update_member", mvo);
+		if(result > 0) {
+			getSqlSession().commit();
+		}
+		return result;
+	}
 }

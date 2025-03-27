@@ -70,9 +70,9 @@ function login(){
 	.then(data => {
 		console.log(data.result);
 		console.log(typeof data.result);
-		if(data.result === '1'){
+		if(data.result === "success"){
 			alert("로그인 성공.");
-			location.href = "MemberController?cmd=mainPage"
+			location.href = "MemberController?cmd=mainPage";
 		}else{
 			alert(LOGIN_FAIL_MSG);
 		}

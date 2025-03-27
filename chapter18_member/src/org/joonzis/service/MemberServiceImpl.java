@@ -19,11 +19,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String checkMember(MemberVO mvo) {
+	public MemberVO checkMember(MemberVO mvo) {
 		// TODO 자동 생성된 메소드 스텁
 		return mdao.checkMember(mvo);
 	}
-	
-	
-	
+
+	@Override
+	public MemberVO memberInfo(MemberVO mvo) {
+		return mdao.memberInfo(mvo);
+	}
+
+	@Override
+	public int updateMember(MemberVO mvo) {
+		return mdao.updateMember(mvo);
+	}
 }

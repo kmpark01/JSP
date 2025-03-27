@@ -35,9 +35,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 </insert>
 	 
 	 <!-- 로그인  -->
-	 <select id="check_member" resultType="string">
+	 <select id="check_member" resultType="org.joonzis.vo.MemberVO" parameterType="org.joonzis.vo.MemberVO">
 	 	SELECT * FROM MEMBER_T WHERE mid=#{mId} AND mpw=#{mPw}
 	 </select>
+	 
+	 <!-- 마이페이지  -->
+	 <select id="member_info" resultType="org.joonzis.vo.MemberVO" parameterType="org.joonzis.vo.MemberVO">
+	 	SELECT *FROM MEMBER_T WHERE m_idx=#{m_idx}
+	 </select>
+	 
+	 <update id="update_member" parameterType="org.joonzis.vo.MemberVO">
+	 	UPDATE MEMBER_T SET mpw=#{mPw}, memail=#{mEmail} WHERE m_id=#{mId}
+	 </update>
 </mapper>
 
 

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.joonzis.vo.MemberVO;
+
 @WebServlet("/MemberController")
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -37,6 +39,7 @@ public class MemberController extends HttpServlet {
 		
 		// session 객체 생성
 		HttpSession session = request.getSession();
+		MemberVO mvo = null;
 		
 		switch(cmd) {
 		case "mainPage" :
@@ -44,6 +47,10 @@ public class MemberController extends HttpServlet {
 			break;
 
 		case "myPage" :
+			mvo = (MemberVO) session.getAttribute("member");
+			
+			request.setAttribute("mvo", mvo);
+			
 			path = "member/myPage.jsp";
 			break;
 			
@@ -53,6 +60,17 @@ public class MemberController extends HttpServlet {
 			
 		case "joinPage" :
 			path = "member/joinPage.jsp";
+			break;
+			
+		case "logout" :
+			session.removeAttribute("member");
+			path = "index.jsp";
+			break;
+		case "update" :
+			mvo = (MemberVO) session.getAttribute("member");
+			
+			request.setAttribute("mvo", mvo);
+			path = "member/updatePage.jsp";
 			break;
 		}
 		

@@ -2,31 +2,21 @@ let sendData;
 
 /* ------------ Form 관련 요소들 ---------------*/
 const f = document.forms[0];
-const mIdValidState = document.querySelector("#mIdValidState");
 const mPwValidState = document.querySelector("#mPwValidState");
 const mPwReValidState = document.querySelector("#mPwReValidState");
-let {idCk, pwCk, pwReCk, nameCk, emailCk} = false; // 검증
-
+let {pwCk, pwReCk, emailCk} = false;
 /* ------------ 정규식 ---------------*/
-const regExpId = /^[a-z]+[0-9a-z]{3,12}$/;   // 아이디 검증 정규식
 const regExpPw = /^[0-9a-zA-Z]{8,16}$/;      // 비밀번호 검증 정규식
-const regExpName = /^[가-힣a-zA-Z]{2,12}$/;   // 이름 검증 정규식 
 const regExpEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;   // 이메일 검증 정규식
 
 /* ------------ 함수 ---------------*/
-
 document.querySelectorAll("button").forEach(btn => {
 	btn.addEventListener('click', () => {
 		let type = btn.getAttribute("id");
 		
-		if(type === 'duplicateCkBtn'){
-			// id 중복 확인
-			validateId();
-		}else if(type === 'joinBtn'){
-			// 회원가입
-			join();
+		if(type === 'updateBtn'){
+			update();
 		}else if(type === 'resetBtn'){
-			// 다시 작성
 			f.reset();
 		}else{
 			// 목록으로 이동
@@ -72,45 +62,6 @@ function Initialization(inputTarget, resultState){
    }
 }
 
-// Id 중복 검증 이벤트
-function validateId(){
-	let target = f.mId;
-	
-	if(target.value == ''){
-		Initialization(target, mIdValidState);
-		alert("아이디를 입력하세요.");
-		idCk = false;
-		return;
-	}else if(!regExpId.exec(target.value)){
-		invalidate(target, mIdValidState, "형식에 맞지 않은 아이디입니다.");
-		idCk = false;
-		return;
-	}
-	
-	const params = {
-		cmd : 'validateId',
-		mId : target.value
-	};
-	
-	const queryString = Object.keys(params).map(key => encodeURIComponent(key) + '=' +
-														encodeURIComponent(params[key])).join('&');
-														
-	fetch(`MemberAsyncController?${queryString}`)
-		.then(response => response.json())
-		.then(data => {
-			if(data.result == 0){
-				validated(target, mIdValidState, '사용 가능한 아이디입니다.');
-				idCk = true;
-				// 데이터 검증 후 변경 불가
-				target.setAttribute('readonly', true);
-			}else{
-				invalidate(target, mIdValidState, '중복된 아이디입니다.');
-				idCk = false;
-			}
-		})
-		.catch(err => console.log(err));
-}
-
 // 비밀번호 입력 이벤트
 f.mPw.addEventListener('keyup', e => {
 	let target = e.currentTarget;
@@ -146,22 +97,6 @@ f.mPwRe.addEventListener('keyup', e => {
 	}
 });
 
-f.mName.addEventListener('keyup', e => {
-	let target = e.currentTarget;
-	
-	if(target.value === ''){
-		// 값이 비었을 때
-		Initialization(target);
-		nameCk = false;
-	}else if(!regExpName.exec(target.value)){
-		invalidate(target);
-		nameCk = false;
-	}else{
-		validated(target);
-		nameCk = true;
-	}
-});
-
 f.mEmail.addEventListener('keyup', e => {
 	let target = e.currentTarget;
 	
@@ -177,11 +112,9 @@ f.mEmail.addEventListener('keyup', e => {
 	}
 })
 
-// 회원가입
-function join(){
-	
-	if(!idCk || !pwCk || !nameCk || !emailCk){
-		alert("모든 입력 내용을 입력해주세요");
+function update(){
+	if(!pwCk || !emailCk){
+		alert("형식을 맞춰서 입력해주세요");
 		return;
 	}
 	
@@ -204,11 +137,12 @@ function join(){
 		console.log(data.result);
 		console.log(typeof data.result);
 		if(data.result === 0){
-			alert("회원가입이 실패했습니다.");
+			alert("회원 정보 수정에 실패했습니다.");
 		}else{
-			alert("회원가입 성공.");
-			location.href = "MemberController?cmd=mainPage"
+			alert("푀원 정보 수정 성공.");
+			location.href = "MemberController?cmd=myPage"
 		}
 	})
 	.catch(err => console.log(err));
 }
+

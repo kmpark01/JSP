@@ -7,5 +7,9 @@ public interface MemberDao {
 	
 	public int insertMember(MemberVO mvo);
 	
-	public String checkMember(MemberVO mvo);
+	public MemberVO checkMember(MemberVO mvo);
+	
+	public MemberVO memberInfo(MemberVO mvo);
+
+	public int updateMember(MemberVO mvo);
 }
