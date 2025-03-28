@@ -139,7 +139,7 @@ function update(){
 		if(data.result === 0){
 			alert("회원 정보 수정에 실패했습니다.");
 		}else{
-			alert("푀원 정보 수정 성공.");
+			alert("성공.");
 			location.href = "MemberController?cmd=myPage"
 		}
 	})

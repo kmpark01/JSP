@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 </select>
 	 
 	 <update id="update_member" parameterType="org.joonzis.vo.MemberVO">
-	 	UPDATE MEMBER_T SET mpw=#{mPw}, memail=#{mEmail} WHERE m_id=#{mId}
+	 	UPDATE MEMBER_T SET mpw=#{mPw}, memail=#{mEmail} WHERE mid=#{mId}
 	 </update>
 </mapper>
 

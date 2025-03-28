@@ -21,9 +21,6 @@
 					<div class="input-group">
 						<input type="text" class="form-control" id="mId" name="mId"
 							placeholder="영어 소문자로 시작, 영어 + 숫자 조합 3~12 글자" value="${mvo.mId }" maxlength="12" readonly>
-						<button class="btn btn-outline-secondary" type="button"
-							id="duplicateCkBtn">중복확인</button>
-						<div class="invalid-feedback" id="mIdValidState"></div>
 					</div>
 				</div>
 				<div class="form-group">
